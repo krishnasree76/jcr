@@ -1,35 +1,52 @@
 import { motion } from "framer-motion";
 import { Users, Building2, HardHat, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import manpowerImage from "@/assets/service-manpower.jpg";
+import facilityImage from "@/assets/service-facility.jpg";
+import constructionImage from "@/assets/service-construction.jpg";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface ServiceCardProps {
   icon: LucideIcon;
   title: string;
   desc: string;
+  image: string;
+  alt: string;
   index: number;
 }
 
-const ServiceCard = ({ icon: Icon, title, desc, index }: ServiceCardProps) => (
+const ServiceCard = ({ icon: Icon, title, desc, image, alt, index }: ServiceCardProps) => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.5, delay: index * 0.15, ease: [0.23, 1, 0.32, 1] }}
     whileHover={{ y: -10 }}
-    className="bg-card p-10 border border-brand-navy/5 shadow-sm hover:shadow-xl transition-all duration-300 group"
+    className="bg-card border border-brand-navy/5 shadow-sm hover:shadow-xl transition-all duration-300 group overflow-hidden"
   >
-    <div className="w-14 h-14 bg-background flex items-center justify-center mb-8 group-hover:bg-brand-navy transition-colors duration-300">
-      <Icon className="text-brand-navy group-hover:text-brand-slate transition-colors duration-300" size={28} />
+    <AspectRatio ratio={4 / 3}>
+      <img
+        src={image}
+        alt={alt}
+        loading="lazy"
+        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+    </AspectRatio>
+
+    <div className="p-10">
+      <div className="w-14 h-14 bg-background flex items-center justify-center mb-8 group-hover:bg-brand-navy transition-colors duration-300">
+        <Icon className="text-brand-navy group-hover:text-brand-slate transition-colors duration-300" size={28} />
+      </div>
+      <p className="text-brand-orange font-display font-bold text-sm mb-2">0{index + 1}</p>
+      <h3 className="font-display text-2xl font-bold text-brand-navy mb-4">{title}</h3>
+      <p className="text-muted-foreground leading-relaxed mb-6">{desc}</p>
+      <a
+        href="#contact"
+        className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-brand-navy hover:text-brand-orange transition-colors"
+      >
+        LEARN MORE <ArrowRight size={14} />
+      </a>
     </div>
-    <p className="text-brand-orange font-display font-bold text-sm mb-2">0{index + 1}</p>
-    <h3 className="font-display text-2xl font-bold text-brand-navy mb-4">{title}</h3>
-    <p className="text-muted-foreground leading-relaxed mb-6">{desc}</p>
-    <a
-      href="#contact"
-      className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-brand-navy hover:text-brand-orange transition-colors"
-    >
-      LEARN MORE <ArrowRight size={14} />
-    </a>
   </motion.div>
 );
 
@@ -38,16 +55,22 @@ const services = [
     icon: Users,
     title: "Manpower Services",
     desc: "Skilled, semi-skilled, and professional staffing solutions tailored to your operational scale and industry requirements.",
+    image: manpowerImage,
+    alt: "JCR manpower team standing together at an industrial facility",
   },
   {
     icon: Building2,
     title: "Facility Management",
     desc: "Comprehensive upkeep, maintenance, and operational management for corporate and industrial spaces.",
+    image: facilityImage,
+    alt: "Facility management staff maintaining a modern commercial corridor",
   },
   {
     icon: HardHat,
     title: "Construction Services",
     desc: "End-to-end infrastructure development with a focus on structural integrity, safety, and timely delivery.",
+    image: constructionImage,
+    alt: "Construction professionals on an active infrastructure project site",
   },
 ];
 
