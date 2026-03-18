@@ -86,12 +86,18 @@ const Navbar = () => {
 
   // 🔥 Smooth scroll function
   const handleScroll = (id) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-      setOpen(false); // close mobile menu
-    }
-  };
+  const section = document.getElementById(id);
+
+  if (section) {
+    const yOffset = -80; // height of navbar (h-20 = 80px)
+    const y =
+      section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+    window.scrollTo({ top: y, behavior: "smooth" });
+
+    setOpen(false);
+  }
+};
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-card/80 backdrop-blur-md border-b border-brand-navy/10">
