@@ -303,31 +303,39 @@ const navLinks = ["About", "Services", "Why Us", "Contact"];
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
-  const handleScroll = (id) => {
-    // 1. Close menu first so it doesn't block the screen
-    setOpen(false);
+ const handleScroll = (id) => {
+  // 1. Find the element
+  const section = document.getElementById(id);
+  
+  // 2. Close the mobile menu immediately
+  setOpen(false);
 
-    // 2. Wrap in a small timeout to allow the mobile menu animation 
-    // to start/finish, which prevents "scroll jumping"
+  if (section) {
+    // 3. Small delay to let the mobile keyboard or menu transition finish
     setTimeout(() => {
-      const section = document.getElementById(id);
-      
-      if (section) {
-        // 3. scrollIntoView is often more reliable on mobile Safari/Chrome
-        // than calculating manual Y offsets.
-        section.scrollIntoView({ 
-          behavior: "smooth", 
-          block: "start" 
-        });
+      const navHeight = 80; // Your navbar height
+      const elementPosition = section.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
 
-        // 4. Since we have a fixed header, we manually adjust for the 80px gap
-        // after the initial scroll to ensure the header doesn't cover content.
-        window.scrollBy(0, -80); 
-      } else {
-        console.error(`Target ID "#${id}" not found on this page.`);
+      // 4. Try the standard smooth scroll
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+
+      // 5. MOBILE FAILSAFE: If window.scrollTo is ignored by the browser, 
+      // we force the documentElement (the literal HTML tag) to move.
+      if (window.pageYOffset === 0 && offsetPosition !== 0) {
+        document.documentElement.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
       }
     }, 100);
-  };
+  } else {
+    console.error(`Missing section with id: ${id}`);
+  }
+};
 
   return (
     <nav className="fixed top-0 w-full z-[100] bg-card/80 backdrop-blur-md border-b border-brand-navy/10">
