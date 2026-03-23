@@ -4,13 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
 
-const navLinks = [
-  { label: "About", id: "about" },
-  { label: "Services", id: "services" },
-  { label: "Why Us", id: "why-us" },
-  { label: "Our Clients", id: "clients" }, // ✅ FIXED
-  { label: "Contact", id: "contact" },
-];
+const navLinks = ["About", "Services", "Why Us", "Clients", "Contact"];
 const Navbar = () => {
   const [open, setOpen] = useState(false);
 
@@ -62,16 +56,16 @@ const Navbar = () => {
 
         {/* DESKTOP MENU */}
         <div className="hidden md:flex gap-8 text-sm font-medium">
-  {navLinks.map((item) => (
-    <button
-      key={item.id}
-      onClick={() => handleScroll(item.id)}
-      className="hover:text-brand-orange transition-colors"
-    >
-      {item.label}
-    </button>
-  ))}
-</div>
+          {navLinks.map((item) => (
+            <button
+              key={item}
+              onClick={() => handleScroll(item.toLowerCase().replace(/\s+/g, "-"))}
+              className="hover:text-brand-orange transition-colors"
+            >
+              {item}
+            </button>
+          ))}
+        </div>
 
         {/* MOBILE TOGGLE - Added 'relative z-[110]' to ensure it's clickable */}
         <button 
@@ -91,15 +85,17 @@ const Navbar = () => {
             exit={{ opacity: 0, y: -20 }}
             className="absolute top-0 left-0 w-full bg-card border-b shadow-xl md:hidden pt-20 pb-10"
           >
-            {navLinks.map((item) => (
-  <button
-    key={item.id}
-    onClick={() => handleScroll(item.id)}
-    className="text-left text-xl font-semibold py-2 border-b border-gray-100"
-  >
-    {item.label}
-  </button>
-))}
+            <div className="px-6 flex flex-col gap-6">
+              {navLinks.map((item) => (
+                <button
+                  key={item}
+                  onClick={() => handleScroll(item.toLowerCase().replace(/\s+/g, "-"))}
+                  className="text-left text-xl font-semibold py-2 border-b border-gray-100"
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
