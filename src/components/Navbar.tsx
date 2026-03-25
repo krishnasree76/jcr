@@ -51,7 +51,7 @@ const Navbar = () => {
           onClick={() => handleScroll("home")}
           className="flex items-center gap-3 cursor-pointer"
         >
-          <img src={logo} alt="Logo" className="h-14 w-auto" />
+          <img src={logo} alt="Logo" className="h-16 w-auto" />
         </div>
 
         {/* DESKTOP MENU */}
