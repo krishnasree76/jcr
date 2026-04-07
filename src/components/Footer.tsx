@@ -1,4 +1,4 @@
-import { Linkedin, Phone, Mail } from "lucide-react";
+import { Linkedin, Phone, Mail,Heart } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 const Footer = () => (
@@ -66,6 +66,24 @@ const Footer = () => (
         >
           <Linkedin size={20} />
         </a>
+        <div className="flex justify-center items-center gap-1 text-white">
+  Made with 
+  <Heart className="inline h-4 w-4 text-red-500 mx-1" /> 
+  by
+  <a
+    href="https://staffarc.in"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex items-center gap-1 text-white hover:underline"
+  >
+    <img
+      src="https://www.staffarc.in/images/Staffarc-logo.png"
+      alt="StaffArc logo"
+      className="h-5 w-5 object-contain"
+    />
+    StaffArc
+  </a>
+</div>
       </div>
     </div>
   </footer>
